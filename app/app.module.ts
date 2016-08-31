@@ -12,11 +12,11 @@ import { InMemoryDataService }               from './in-memory-data.service';
 import { AppComponent }   from './app.component';
 import { routing }        from './app.routing';
 
-import { HeroesComponent }      from './heroes.component';
-import { DashboardComponent }   from './dashboard.component';
-import { HeroDetailComponent }  from './hero-detail.component';
-import { HeroService }          from './hero.service';
-import { HeroSearchComponent }  from './hero-search.component';
+import { HeroesComponent }      from './hero/heroes.component';
+import { DashboardComponent }   from './hero/dashboard.component';
+import { HeroDetailComponent }  from './hero/hero-detail.component';
+import { HeroService }          from './shared/hero.service';
+import { HeroSearchComponent }  from './hero/hero-search.component';
 
 @NgModule({
   imports: [
