@@ -4,6 +4,14 @@ var source = require('vinyl-source-stream');
 var tsify = require("tsify");
 const del = require('del'); //clean output resource
 var browserSync = require('browser-sync').create();
+
+var fs = require("fs"),
+    path = require("path"),
+    url = require("url");
+
+var defaultFile = "index.html";
+var folder = path.resolve(__dirname, "./dist");
+
 var paths = {
     pages: ['app/**/*.html', 'app/**/*.css']
 };
@@ -44,6 +52,15 @@ gulp.task('browser', function() {
             files: ['**/*/{html,css,js}'],
             routes: {
                 "/node_modules": "node_modules"
+            },
+            middleware: function(req, res, next) {
+                var fileName = url.parse(req.url);
+                fileName = fileName.href.split(fileName.search).join("");
+                var fileExists = fs.existsSync(folder + fileName);
+                if (!fileExists && fileName.indexOf("browser-sync-client") < 0) {
+                    req.url = "/" + defaultFile;
+                }
+                return next();
             }
         }
     });
